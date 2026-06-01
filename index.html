@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Five Years of Starlight. A Galaxy of Promises Ahead.</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Noto+Serif+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:'Cormorant Garamond','Noto Serif SC',serif;background:#030510;color:#e8e4dc;overflow-x:hidden}
+::selection{background:rgba(201,168,76,0.25);color:#e8e4dc}
+
+:root{
+  --gold:#d4b86a;--gold-bright:#e8d28a;--gold-dim:#8a7040;
+  --cream:#e8e4dc;--cream-dim:#9a9688;
+  --space:#030510;
+}
+
+/* ===== HERO CANVAS ===== */
+#hero-canvas{position:fixed;inset:0;z-index:0}
+
+/* ===== IMMERSIVE OPENING ===== */
+#opening{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 2s ease,transform 2s ease}
+#opening.vanish{opacity:0;transform:scale(1.05);pointer-events:none}
+
+.opening-stars{position:absolute;inset:0;pointer-events:none}
+.opening-title{text-align:center;position:relative;z-index:20;max-width:620px;padding:0 30px}
+.opening-en{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,5vw,3.6rem);font-weight:400;font-style:italic;color:var(--gold);letter-spacing:0.03em;line-height:1.25;text-shadow:0 0 80px rgba(212,184,106,0.22),0 0 200px rgba(180,160,210,0.1);opacity:0;animation:fadeInUp 3s ease 0.8s forwards}
+.opening-line{width:1px;height:60px;background:linear-gradient(180deg,transparent,var(--gold-dim),transparent);margin:28px auto;opacity:0;animation:fadeIn 2.5s ease 1.8s forwards}
+.opening-hint{font-family:'Cormorant Garamond',serif;font-size:0.75rem;letter-spacing:0.35em;color:var(--gold-dim);text-transform:uppercase;opacity:0;animation:fadeIn 2s ease 2.5s forwards,breathe 3s ease 3.5s infinite;cursor:pointer;transition:color 0.3s}
+.opening-hint:hover{color:var(--gold)}
+
+/* ===== OPENING SILHOUETTES ===== */
+.opening-silhouettes{position:relative;z-index:20;margin-top:40px;opacity:0;animation:fadeInUp 3s ease 2.2s forwards;text-align:center}
+.opening-silhouettes svg{width:clamp(180px,35vw,250px);height:auto;overflow:visible}
+.opening-silhouettes .sil-woman{animation:silFloat 5s ease-in-out infinite}
+.opening-silhouettes .sil-man{animation:silFloat 5s ease-in-out 0.6s infinite}
+@keyframes silFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+@keyframes fadeInUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{to{opacity:1}}
+@keyframes breathe{0%,100%{opacity:0.25}50%{opacity:0.85}}
+
+.opening-music{position:absolute;top:30px;right:30px;z-index:30;width:42px;height:42px;border-radius:50%;border:1px solid rgba(212,184,106,0.2);background:rgba(3,5,16,0.6);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s;opacity:0;animation:fadeIn 2s ease 2s forwards}
+.opening-music:hover{border-color:var(--gold)}
+.opening-music svg{width:16px;height:16px;stroke:var(--gold-dim);fill:none;stroke-width:1.5}
+.opening-music.playing svg{stroke:var(--gold);animation:spin 4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ===== MAIN ===== */
+#main-content{position:relative;z-index:5;opacity:0;transform:translateY(40px);transition:opacity 1.5s ease,transform 1.5s ease}
+#main-content.visible{opacity:1;transform:translateY(0)}
+
+.wrap{max-width:780px;margin:0 auto;padding:0 20px}
+
+.gate-header{text-align:center;padding:60px 0 24px;position:relative}
+.gate-en{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:var(--gold);letter-spacing:0.02em;line-height:1.35;margin-bottom:10px;text-shadow:0 0 40px rgba(212,184,106,0.15)}
+.gate-cn{font-family:'Noto Serif SC',serif;font-size:clamp(0.85rem,1.8vw,1rem);font-weight:300;color:var(--cream-dim);letter-spacing:0.1em;margin-bottom:6px}
+.gate-sub{font-family:'Cormorant Garamond',serif;font-size:0.78rem;color:var(--cream-dim);letter-spacing:0.15em;opacity:0.55}
+.gate-line{width:50px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);margin:24px auto 0}
+
+/* ===== COUPLE ILLUSTRATION ===== */
+.couple-wrap{text-align:center;margin:8px auto 28px;max-width:260px;opacity:0;transform:translateY(15px);transition:all 1.4s ease 0.3s}
+.couple-wrap.visible{opacity:1;transform:translateY(0)}
+.couple-svg{width:100%;height:auto;overflow:visible}
+.couple-wrap .sil-woman{animation:silFloat 5s ease-in-out infinite;transform-origin:85px 80px}
+.couple-wrap .sil-man{animation:silFloat 5s ease-in-out 0.6s infinite;transform-origin:170px 75px}
+.couple-wrap.embraced .sil-woman{animation:embraceWoman 3.5s ease-in-out forwards,silFloat 5s ease-in-out 3.5s infinite;transform-origin:85px 80px}
+.couple-wrap.embraced .sil-man{animation:embraceMan 3.5s ease-in-out forwards,silFloat 5s ease-in-out 4.1s infinite;transform-origin:170px 75px}
+.couple-wrap .arm-woman,.couple-wrap .arm-man{opacity:0;transition:opacity 0.6s}
+.couple-wrap.embraced .arm-woman{animation:armReveal 0.8s ease 1s forwards}
+.couple-wrap.embraced .arm-man{animation:armReveal 0.8s ease 1s forwards}
+.couple-wrap .embrace-glow{opacity:0;transition:opacity 1s}
+.couple-wrap.embraced .embrace-glow{animation:glowPulse 2s ease 1.8s forwards}
+@keyframes embraceWoman{
+  0%{transform:translateX(0) rotate(0deg)}
+  25%{transform:translateX(0) rotate(5deg)}
+  65%{transform:translateX(26px) rotate(5deg)}
+  100%{transform:translateX(24px) rotate(4deg)}
+}
+@keyframes embraceMan{
+  0%{transform:translateX(0) rotate(0deg)}
+  25%{transform:translateX(0) rotate(-5deg)}
+  65%{transform:translateX(-26px) rotate(-5deg)}
+  100%{transform:translateX(-24px) rotate(-4deg)}
+}
+@keyframes armReveal{to{opacity:0.55}}
+@keyframes glowPulse{0%{opacity:0}50%{opacity:0.5}100%{opacity:0.3}}
+
+.opening-letter{font-family:'Noto Serif SC',serif;font-size:0.88rem;color:var(--cream-dim);line-height:2;text-align:justify;margin:0 auto 40px;max-width:560px;padding:0 10px;opacity:0;transform:translateY(20px);transition:all 1.2s ease 0.3s}
+.opening-letter.visible{opacity:1;transform:translateY(0)}
+.opening-letter p{margin-bottom:1em}
+.opening-letter .salutation{font-size:0.95rem;color:var(--cream);margin-bottom:0.5em}
+.opening-letter .sign-off{text-align:right;color:var(--gold-dim);font-style:italic;margin-top:1em;font-size:0.82rem}
+
+/* ===== ENVELOPES ===== */
+.env-area{display:flex;flex-direction:column;gap:16px;padding:0 0 40px}
+@media(min-width:768px){
+  .env-area{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:0 0 48px}
+}
+
+.env-card{position:relative;background:linear-gradient(145deg,rgba(14,18,34,0.92),rgba(8,10,22,0.96));border:1px solid rgba(212,184,106,0.08);border-radius:3px;padding:22px 22px 18px;cursor:pointer;transition:all 0.6s cubic-bezier(0.23,1,0.32,1);overflow:hidden;opacity:0;transform:translateY(20px)}
+.env-card.visible{opacity:1;transform:translateY(0)}
+.env-card:hover{border-color:rgba(212,184,106,0.2);box-shadow:0 0 40px rgba(212,184,106,0.06)}
+.env-card.open{cursor:default}
+
+.env-card:nth-child(1){transition-delay:0.1s}
+.env-card:nth-child(2){transition-delay:0.2s}
+.env-card:nth-child(3){transition-delay:0.3s}
+.env-card:nth-child(4){transition-delay:0.4s}
+.env-card:nth-child(5){transition-delay:0.5s;grid-column:1/-1;max-width:460px;margin:0 auto;width:100%}
+@media(min-width:768px){.env-card:nth-child(5){grid-column:auto;max-width:none}}
+
+.env-card::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='25' cy='20' r='0.5' fill='rgba(212,184,106,0.08)'/%3E%3Ccircle cx='70' cy='40' r='0.4' fill='rgba(212,184,106,0.06)'/%3E%3Ccircle cx='40' cy='70' r='0.6' fill='rgba(212,184,106,0.05)'/%3E%3C/svg%3E");opacity:0;transition:opacity 0.4s;pointer-events:none}
+.env-card:hover::after{opacity:1}
+
+.env-seal{position:absolute;top:14px;right:16px;width:24px;height:24px;border-radius:50%;border:1.5px solid rgba(212,184,106,0.15);display:flex;align-items:center;justify-content:center;transition:all 0.4s}
+.env-card:hover .env-seal{border-color:rgba(212,184,106,0.3)}
+.env-seal::after{content:'';width:6px;height:6px;border-radius:50%;background:rgba(212,184,106,0.2);transition:all 0.4s}
+.env-card.found .env-seal{border-color:var(--gold)}
+.env-card.found .env-seal::after{background:var(--gold);box-shadow:0 0 6px rgba(212,184,106,0.4)}
+
+.env-chapter{font-family:'Cormorant Garamond',serif;font-size:0.58rem;font-style:italic;color:var(--gold-dim);letter-spacing:0.3em;text-transform:uppercase;margin-bottom:4px}
+.env-title{font-family:'Playfair Display',serif;font-size:clamp(1.05rem,2.2vw,1.3rem);font-weight:400;color:var(--cream);letter-spacing:0.03em;margin-bottom:6px;transition:color 0.3s}
+.env-card:hover .env-title{color:var(--gold)}
+.env-preview{font-family:'Noto Serif SC',serif;font-size:0.78rem;color:var(--cream-dim);line-height:1.65;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;opacity:0.6}
+
+.env-letter{display:none;margin-top:14px;padding-top:14px;border-top:1px solid rgba(212,184,106,0.08);animation:fadeUp 0.5s ease}
+.env-card.open .env-letter{display:block}
+.env-letter-body{font-family:'Noto Serif SC',serif;font-size:0.84rem;color:var(--cream);line-height:2;letter-spacing:0.01em;text-align:justify}
+.env-letter-body p{margin-bottom:0.9em}
+.env-letter-body p:last-child{margin-bottom:0}
+.env-close{display:inline-flex;align-items:center;gap:5px;margin-top:12px;padding:5px 0;font-family:'Cormorant Garamond',serif;font-size:0.72rem;font-style:italic;color:var(--gold-dim);letter-spacing:0.08em;cursor:pointer;background:none;border:none;transition:color 0.3s}
+.env-close:hover{color:var(--gold)}
+
+/* ===== FOOTER ===== */
+.footer{text-align:center;padding:32px 16px 56px;border-top:1px solid rgba(212,184,106,0.05);position:relative;opacity:0;transform:translateY(20px);transition:all 1.2s ease}
+.footer.visible{opacity:1;transform:translateY(0)}
+.footer::before{content:'✦';position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:0.8rem;color:var(--gold-dim);opacity:0.35}
+.footer-text{font-family:'Noto Serif SC',serif;font-size:0.82rem;color:var(--cream-dim);line-height:2;margin-bottom:16px}
+.footer-text p{margin-bottom:0.6em}
+.footer-sign{font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-style:italic;color:var(--gold);letter-spacing:0.1em}
+.footer-date{font-family:'Cormorant Garamond',serif;font-size:0.68rem;color:var(--cream-dim);margin-top:6px;opacity:0.5}
+
+/* ===== FLOATING BUTTONS ===== */
+.wish-btn{position:fixed;bottom:20px;right:20px;z-index:100;width:42px;height:42px;border-radius:50%;border:1px solid rgba(212,184,106,0.15);background:rgba(3,5,16,0.85);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s}
+.wish-btn:hover{border-color:var(--gold)}
+.wish-btn svg{width:16px;height:16px;stroke:var(--gold-dim);fill:none;stroke-width:1.5;transition:stroke 0.3s}
+.wish-btn:hover svg{stroke:var(--gold)}
+
+.music-btn{position:fixed;bottom:20px;left:20px;z-index:100;width:36px;height:36px;border-radius:50%;border:1px solid rgba(212,184,106,0.1);background:rgba(3,5,16,0.85);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s}
+.music-btn:hover{border-color:var(--gold-dim)}
+.music-btn svg{width:14px;height:14px;stroke:var(--cream-dim);fill:none;stroke-width:1.5}
+.music-btn.playing svg{stroke:var(--gold);animation:spin 4s linear infinite}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<canvas id="hero-canvas"></canvas>
+
+<!-- ===== OPENING ===== -->
+<div id="opening">
+  <div class="opening-stars" id="openingStars"></div>
+  <button class="opening-music" id="openingMusicBtn" onclick="toggleMusic()">
+    <svg viewBox="0 0 24 24"><path d="M9 18V6l12-3v12"/><circle cx="6" cy="21" r="1.5"/><circle cx="18" cy="18" r="1.5"/></svg>
+  </button>
+  <div class="opening-title">
+    <h1 class="opening-en">Five Years of Starlight.<br>A Galaxy of Promises Ahead.</h1>
+    <div class="opening-line"></div>
+    <p class="opening-hint" onclick="enterStory()">向下滑动，开启长信</p>
+  </div>
+  <div class="opening-silhouettes">
+    <svg viewBox="0 0 240 160" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="gradOpenW" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#d4b86a" stop-opacity="0.75"/>
+          <stop offset="100%" stop-color="#d4b86a" stop-opacity="0.1"/>
+        </linearGradient>
+        <linearGradient id="gradOpenM" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#d4b86a" stop-opacity="0.75"/>
+          <stop offset="100%" stop-color="#d4b86a" stop-opacity="0.1"/>
+        </linearGradient>
+      </defs>
+      <g class="sil-woman" opacity="0.8">
+        <ellipse cx="78" cy="24" rx="10" ry="11" fill="none" stroke="url(#gradOpenW)" stroke-width="0.7"/>
+        <path d="M78 35c-8 0-14 5-16 13l-4 24c0 1.5 1.5 2.5 3 2l3-22 2 36c0 1.5 1.5 2.5 3 2.5h1.5c1.5 0 3-1 3-2.5l1.5-24 1.5 24c0 1.5 1.5 2.5 3 2.5h1.5c1.5 0 3-1 3-2.5l2-36 3 22c1.5 0.5 3-0.5 3-2l-4-24c-2-8-8-13-16-13z" fill="url(#gradOpenW)"/>
+      </g>
+      <g class="sil-man" opacity="0.8">
+        <ellipse cx="162" cy="21" rx="10.5" ry="11.5" fill="none" stroke="url(#gradOpenM)" stroke-width="0.7"/>
+        <path d="M162 32.5c-8 0-14 4.5-16 12l-3.5 22 3.5 1.5 3-17 1.5 34c0 1.5 1.5 2.5 3 2.5h5c1.5 0 3-1 3-2.5l1.5-34 3 17 3.5-1.5-3.5-22c-2-7.5-8-12-16-12z" fill="url(#gradOpenM)"/>
+      </g>
+      <path d="M100 95c10 3 20 3 30 0" fill="none" stroke="#d4b86a" stroke-width="0.4" opacity="0.18"/>
+    </svg>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div id="main-content">
+  <div class="wrap">
+
+    <header class="gate-header">
+      <h1 class="gate-en">Five Years of Starlight.<br>A Galaxy of Promises Ahead.</h1>
+      <p class="gate-cn">五周年的一封信</p>
+      <p class="gate-sub">2021.05.31 — 2026.05.31</p>
+      <div class="gate-line"></div>
+    </header>
+
+    <!-- ===== COUPLE ILLUSTRATION ===== -->
+    <div class="couple-wrap" id="coupleWrap">
+      <svg class="couple-svg" viewBox="0 0 240 160" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <linearGradient id="gradW" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#d4b86a" stop-opacity="0.65"/>
+            <stop offset="100%" stop-color="#d4b86a" stop-opacity="0.08"/>
+          </linearGradient>
+          <linearGradient id="gradM" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#d4b86a" stop-opacity="0.65"/>
+            <stop offset="100%" stop-color="#d4b86a" stop-opacity="0.08"/>
+          </linearGradient>
+        </defs>
+        <g class="sil-woman" opacity="0.75">
+          <ellipse cx="78" cy="24" rx="10" ry="11" fill="none" stroke="url(#gradW)" stroke-width="0.7"/>
+          <path d="M78 35c-8 0-14 5-16 13l-4 24c0 1.5 1.5 2.5 3 2l3-22 2 36c0 1.5 1.5 2.5 3 2.5h1.5c1.5 0 3-1 3-2.5l1.5-24 1.5 24c0 1.5 1.5 2.5 3 2.5h1.5c1.5 0 3-1 3-2.5l2-36 3 22c1.5 0.5 3-0.5 3-2l-4-24c-2-8-8-13-16-13z" fill="url(#gradW)"/>
+        </g>
+        <g class="sil-man" opacity="0.75">
+          <ellipse cx="162" cy="21" rx="10.5" ry="11.5" fill="none" stroke="url(#gradM)" stroke-width="0.7"/>
+          <path d="M162 32.5c-8 0-14 4.5-16 12l-3.5 22 3.5 1.5 3-17 1.5 34c0 1.5 1.5 2.5 3 2.5h5c1.5 0 3-1 3-2.5l1.5-34 3 17 3.5-1.5-3.5-22c-2-7.5-8-12-16-12z" fill="url(#gradM)"/>
+        </g>
+        <!-- 拥抱光晕 -->
+        <circle class="embrace-glow" cx="120" cy="55" r="18" fill="none" stroke="#d4b86a" stroke-width="0.5" opacity="0"/>
+        <circle class="embrace-glow" cx="120" cy="55" r="28" fill="none" stroke="#d4b86a" stroke-width="0.3" opacity="0"/>
+        <!-- 女性伸手臂 -->
+        <path class="arm-woman" d="M99 50 Q114 42 126 52" fill="none" stroke="#d4b86a" stroke-width="0.6" opacity="0"/>
+        <!-- 男性伸手臂 -->
+        <path class="arm-man" d="M156 46 Q141 38 129 48" fill="none" stroke="#d4b86a" stroke-width="0.6" opacity="0"/>
+        <!-- 交握星点 -->
+        <circle class="embrace-glow" cx="127" cy="50" r="2" fill="#d4b86a" opacity="0"/>
+        <circle cx="95" cy="38" r="0.6" fill="#d4b86a" opacity="0.25"/>
+        <circle cx="145" cy="32" r="0.5" fill="#d4b86a" opacity="0.2"/>
+        <circle cx="120" cy="98" r="0.7" fill="#d4b86a" opacity="0.15"/>
+      </svg>
+    </div>
+
+    <div class="opening-letter" id="openingLetter">
+      <p class="salutation">亲爱的杨帆：</p>
+      <p>今天，2026年5月31日。五年前的今天，我们领证了。一眨眼，整整五年。</p>
+      <p>五年，不长不短。两个热烈又独立的人，带着各自的棱角，在柴米油盐里磨合，在现实里取舍，有甜有伤，慢慢读懂了婚姻，也读懂了彼此。</p>
+
+      <p class="sign-off">—— 张健</p>
+    </div>
+
+    <section class="env-area" id="envelopes">
+
+      <!-- Ch.1 -->
+      <article class="env-card" onclick="toggleLetter(this)">
+        <div class="env-seal"></div>
+        <p class="env-chapter">Chapter I · True Self</p>
+        <h3 class="env-title">你眼底有不肯熄灭的火</h3>
+        <p class="env-preview">这五年，我最大的收获，是终于读懂了你。你骨子里就不是那种温顺安分的人…</p>
+        <div class="env-letter">
+          <div class="env-letter-body">
+            <p>这五年，我最大的收获，是终于读懂了你。</p>
+            <p>你骨子里就不是那种温顺安分的人。你天生向往自由，极度渴求精神独立。什么"贤妻良母"的标签，你打心底里抵触，不想让婚姻和育儿定义你的一生。</p>
+            <p>你不靠谁，也不依附谁。你想要的就是掌控自己人生的底气，是灵魂不被束缚的自在，是为自己活的权利。</p>
+            <p>这份清醒、洒脱和骨子里的傲气，是我最初爱上你的样子。到现在，还是。</p>
+            <p>所以记住了，不管到了什么年纪、什么处境，你首先是你自己。这一点，永远不要丢。</p>
+          </div>
+          <button class="env-close" onclick="event.stopPropagation();toggleLetter(this.closest('.env-card'))">收起</button>
+        </div>
+      </article>
+
+      <!-- Ch.2 -->
+      <article class="env-card" onclick="toggleLetter(this)">
+        <div class="env-seal"></div>
+        <p class="env-chapter">Chapter II · Sacrifice</p>
+        <h3 class="env-title">你收起了翅膀</h3>
+        <p class="env-preview">可婚姻最真实、也最不讲道理的地方，就在这儿。你明明向往独立和自由…</p>
+        <div class="env-letter">
+          <div class="env-letter-body">
+            <p>可婚姻最真实、也最不讲道理的地方，就在这儿。</p>
+            <p>你明明向往独立和自由，本该活得肆意、光芒万丈。却为了这个小家、为了孩子，心甘情愿收起棱角、放下热爱，一当就是五年全职妈妈。</p>
+            <p>这五年，我在外面拼事业、扛开销，撑起了家里的烟火气。你呢？把自己的工作、朋友圈、独处的时间全扔了。一天两天也就罢了，整整五年，日复一日地熬。</p>
+            <p>外人看我们，好像"各司其职"，安稳圆满。可只有我们自己知道，这份安稳是怎么来的——是你的自由、你的棱角、你本来该有的生活，一点一点换来的。</p>
+            <p>这些年下来，你的样子变了，身材也变了。我知道你心里难受。不光是因为变老变胖，更是在这场漫长的消耗里，你慢慢找不到从前那个天不怕地不怕、闪闪发光的自己了。</p>
+          </div>
+          <button class="env-close" onclick="event.stopPropagation();toggleLetter(this.closest('.env-card'))">收起</button>
+        </div>
+      </article>
+
+      <!-- Ch.3 -->
+      <article class="env-card" onclick="toggleLetter(this)">
+        <div class="env-seal"></div>
+        <p class="env-chapter">Chapter III · Wounds</p>
+        <h3 class="env-title">烟火里的裂痕</h3>
+        <p class="env-preview">说实话，咱俩的婚姻，从来不是什么童话。甜的时候是真甜…</p>
+        <div class="env-letter">
+          <div class="env-letter-body">
+            <p>说实话，咱俩的婚姻，从来不是什么童话。</p>
+            <p>甜的时候是真甜，那些细碎小事拼起来的踏实感，挺好的。但吵的时候也是真吵。冷战、误会、话赶话谁也不让谁，死要面子活受罪。</p>
+            <p>那些架吵的，一次次把你逼到崩溃边缘。你一个人躲着哭，一个人把碎了的心拼好。写到这儿，我心里特别不是滋味。</p>
+            <p>我现在才慢慢琢磨明白，咱俩吵架，根子不在那些事上，在我。我明明知道你爱自由、想独立，却眼睁睁看着你被现实困住，装看不见。</p>
+            <p>我以前老觉得，赚钱养家就是尽到责任了。可你呢？你的骄傲一点一点被磨没了，你的自由被锁得死死的。你那些低落、崩溃的时候，真不是无理取闹。那是一个骄傲的人被捆住了手脚，想逃都逃不掉的无力感。我明白，但明白得太晚了。</p>
+          </div>
+          <button class="env-close" onclick="event.stopPropagation();toggleLetter(this.closest('.env-card'))">收起</button>
+        </div>
+      </article>
+
+      <!-- Ch.4 -->
+      <article class="env-card" onclick="toggleLetter(this)">
+        <div class="env-seal"></div>
+        <p class="env-chapter">Chapter IV · Confession</p>
+        <h3 class="env-title">我是个不完美的爱人</h3>
+        <p class="env-preview">回头看这五年，不想说那些虚的了，也不装什么圣人了。我啊，就是一个被生活推着往前走的普通男人…</p>
+        <div class="env-letter">
+          <div class="env-letter-body">
+            <p>回头看这五年，不想说那些虚的了，也不装什么圣人了。</p>
+            <p>我啊，就是一个被生活推着往前走的普通男人。两头都想要，两头都顾不上。你的委屈我其实都看在眼里，你的不甘心我也懂。但养家养孩子的压力就摆在那儿，我只能一次一次做取舍。</p>
+            <p>我也想洒脱点，想把自由立刻还给你，想接住你每一次崩溃。但现实不允许。我真做不到。</p>
+            <p>我不够温柔，心也不够细。一边拼事业一边把你照顾得面面俱到，这事儿我真不行。我迟钝、我自私，我有我的难处和权衡，有我想做好但就是没做好的地方。</p>
+            <p>正因为我自己也不完美，才更懂你这五年有多不容易，心里才更愧疚。</p>
+            <p>你最怕被束缚，却为了这个家，心甘情愿把自己折起来，一天一天被消耗。有时候我觉得，我连你最需要的安全感都没给够。让你在最亲的人面前，活得那么憋屈。这是我欠你的。</p>
+          </div>
+          <button class="env-close" onclick="event.stopPropagation();toggleLetter(this.closest('.env-card'))">收起</button>
+        </div>
+      </article>
+
+      <!-- Ch.5 -->
+      <article class="env-card" onclick="toggleLetter(this)">
+        <div class="env-seal"></div>
+        <p class="env-chapter">Chapter V · Redemption</p>
+        <h3 class="env-title">请让我重新爱你</h3>
+        <p class="env-preview">五年了。甜过，也亏欠过。我一直记得，我第一眼爱上的…</p>
+        <div class="env-letter">
+          <div class="env-letter-body">
+            <p>五年了。甜过，也亏欠过。</p>
+            <p>我一直记得，我第一眼爱上的，从来不是什么"贤妻良母"。是那个有脾气、有想法、完完整整的你。</p>
+            <p>我在外面拼，不是为了把你圈在家里。我是想做你的底气，做你的退路。让你有底气甩开这些乱七八糟的事，重新做回你自己。</p>
+            <p>往后，我不指望你当完美的妻子，也不指望你当完美的妈妈。我只希望咱俩都能松快点、自在点。别再往自己身上套那些标签了，行吗。</p>
+            <p>说到我自己，我也在这儿许个愿吧：我希望咱俩都不用委屈自己，不用为了对方磨掉个性。我也不想被"儿子""丈夫""爸爸"这些角色搞得天天挣扎、天天怕失衡。尤其是我特别不希望我的家人、我爸妈被贴标签。真的，能让我内耗、让我无助的事不多。我也想得到你的帮衬，在婆媳、公婆这些关系里帮我把控好大局，让我有后盾、有底气去冲以后的事。但我又很怕——怕你觉得这叫面子、叫虚伪。</p>
+            <p>以后的日子，我肯定还是做不到十全十美，现实的压力也不可能全消掉，争执说不定还会有。但我能拍着胸脯说的是：我不会麻木，也不会躺平。</p>
+            <p>以前那些委屈、遗憾，翻篇了。我不指望你马上原谅我。但我想一件一件做给你看。少犟一点，多听你说，多站你这边。我想帮你解开身上的绳子，守住你的自由，慢慢治好你的焦虑和自卑，用每一天的行动，把这五年欠你的，一点点补回来。</p>
+          </div>
+          <button class="env-close" onclick="event.stopPropagation();toggleLetter(this.closest('.env-card'))">收起</button>
+        </div>
+      </article>
+
+    </section>
+
+    <footer class="footer" id="footer">
+      <div class="footer-text">
+        <p>五年星河为证。谢谢你收起了翅膀，陪我在这人间的烟火里走了一遭。</p>
+        <p>Anyway，五周年快乐。以后的路，咱俩还一起。</p>
+      </div>
+      <p class="footer-sign">永远爱你的先生 · 张健</p>
+      <p class="footer-date">2026.05.31</p>
+    </footer>
+
+  </div>
+</div>
+
+<button class="wish-btn" onclick="triggerWish()" title="许愿">
+  <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6-4.8-6 4.8 2.4-7.2-6-4.8h7.6z"/></svg>
+</button>
+
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()">
+  <svg viewBox="0 0 24 24"><path d="M9 18V6l12-3v12"/><circle cx="6" cy="21" r="1.5"/><circle cx="18" cy="18" r="1.5"/></svg>
+</button>
+
+<audio id="bgMusic" loop><source src="" type="audio/mpeg"></audio>
+
+<script>
+// ===== HERO CANVAS WITH NEBULA =====
+const heroCvs=document.getElementById('hero-canvas');
+const hctx=heroCvs.getContext('2d');
+let HW,HH,hStars=[],hMeteors=[],hWishes=[],hNebulae=[],hDust=[],hFireflies=[];
+function hResize(){HW=heroCvs.width=innerWidth;HH=heroCvs.height=innerHeight}
+hResize();addEventListener('resize',hResize);
+
+// Nebula — large, slowly drifting gas clouds for immersive depth
+class Nebula{
+  constructor(){this.reset()}
+  reset(){
+    this.x=Math.random()*HW;
+    this.y=Math.random()*HH;
+    this.r=Math.random()*HW*0.38+HW*0.14;
+    this.vx=(Math.random()-0.5)*0.07;
+    this.vy=(Math.random()-0.5)*0.05;
+    const t=Math.random();
+    if(t<0.4){this.rgba=[28,38,88];this.baseA=0.025+Math.random()*0.035}
+    else if(t<0.75){this.rgba=[45,28,75];this.baseA=0.018+Math.random()*0.028}
+    else{this.rgba=[55,38,28];this.baseA=0.012+Math.random()*0.022}
+    this.a=this.baseA;
+    this.pulseSpeed=0.00025+Math.random()*0.0005;
+    this.pulseAmp=0.004+Math.random()*0.009;
+  }
+  update(){
+    this.x+=this.vx;this.y+=this.vy;
+    if(this.x<-this.r)this.x=HW+this.r;
+    if(this.x>HW+this.r)this.x=-this.r;
+    if(this.y<-this.r)this.y=HH+this.r;
+    if(this.y>HH+this.r)this.y=-this.r;
+    this.a=this.baseA+Math.sin(Date.now()*this.pulseSpeed)*this.pulseAmp;
+  }
+  draw(){
+    const [R,G,B]=this.rgba;
+    const g=hctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.r);
+    g.addColorStop(0,`rgba(${R},${G},${B},${this.a*1.4})`);
+    g.addColorStop(0.45,`rgba(${R},${G},${B},${this.a})`);
+    g.addColorStop(0.75,`rgba(${R},${G},${B},${this.a*0.25})`);
+    g.addColorStop(1,'transparent');
+    hctx.fillStyle=g;
+    hctx.fillRect(this.x-this.r,this.y-this.r,this.r*2,this.r*2);
+  }
+}
+
+// Dust — tiny floating particles for depth
+class Dust{
+  constructor(){
+    this.x=Math.random()*HW;this.y=Math.random()*HH;
+    this.r=Math.random()*0.6+0.1;
+    this.vx=(Math.random()-0.5)*0.14;
+    this.vy=(Math.random()-0.5)*0.09;
+    this.a=Math.random()*0.22+0.04;
+    this.da=Math.random()*0.008;
+  }
+  update(){
+    this.x+=this.vx;this.y+=this.vy;
+    if(this.x<0)this.x=HW;if(this.x>HW)this.x=0;
+    if(this.y<0)this.y=HH;if(this.y>HH)this.y=0;
+    this.a+=this.da*(Math.random()>0.5?1:-1);
+    this.a=Math.max(0.02,Math.min(0.28,this.a));
+  }
+  draw(){
+    hctx.beginPath();hctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+    hctx.fillStyle=`rgba(195,190,220,${this.a})`;hctx.fill();
+  }
+}
+
+class HStar{
+  constructor(){
+    this.x=Math.random()*HW;this.y=Math.random()*HH;
+    this.r=Math.random()*2.2+0.2;
+    this.baseA=Math.random()*0.7+0.2;
+    this.a=this.baseA;
+    this.p=Math.random()*Math.PI*2;
+    this.twinkleSpeed=0.002+Math.random()*0.006;
+    this.twinkle=Math.random()>0.4;
+    this.hue=Math.random()>0.8?'220,210,240':'220,210,180';
+  }
+  update(){if(this.twinkle)this.a=this.baseA+Math.sin(Date.now()*this.twinkleSpeed+this.p)*(this.baseA*0.32)}
+  draw(){
+    hctx.beginPath();hctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+    hctx.fillStyle=`rgba(${this.hue},${this.a})`;hctx.fill();
+    if(this.r>0.8){
+      hctx.beginPath();hctx.arc(this.x,this.y,this.r*3.5,0,Math.PI*2);
+      hctx.fillStyle=`rgba(${this.hue},${this.a*0.1})`;hctx.fill();
+    }
+    if(this.r>1.6){
+      hctx.strokeStyle=`rgba(${this.hue},${this.a*0.18})`;
+      hctx.lineWidth=0.5;
+      hctx.beginPath();hctx.moveTo(this.x-this.r*5,this.y);hctx.lineTo(this.x+this.r*5,this.y);hctx.stroke();
+      hctx.beginPath();hctx.moveTo(this.x,this.y-this.r*5);hctx.lineTo(this.x,this.y+this.r*5);hctx.stroke();
+    }
+  }
+}
+class HMeteor{
+  constructor(){this.reset()}
+  reset(){
+    this.x=Math.random()*HW*0.8;
+    this.y=Math.random()*HH*0.35;
+    const angle=Math.PI*0.08+Math.random()*0.28,speed=Math.random()*3+1.5;
+    this.vx=Math.cos(angle)*speed;this.vy=Math.sin(angle)*speed;
+    this.len=Math.random()*180+80;
+    this.a=Math.random()*0.5+0.3;
+    this.maxA=this.a;
+    this.decay=0.006+Math.random()*0.012;
+  }
+  update(){
+    this.x+=this.vx;this.y+=this.vy;
+    this.a-=this.decay;
+    if(this.x>HW+150||this.y>HH+150||this.a<=0)this.reset();
+  }
+  draw(){
+    if(this.a<=0)return;
+    const tx=this.x-this.vx*(this.len/5),ty=this.y-this.vy*(this.len/5);
+    const g=hctx.createLinearGradient(this.x,this.y,tx,ty);
+    g.addColorStop(0,`rgba(255,255,240,${Math.min(1,this.a)})`);
+    g.addColorStop(0.12,`rgba(240,220,170,${Math.min(1,this.a*0.85)})`);
+    g.addColorStop(0.4,`rgba(180,160,120,${Math.min(1,this.a*0.35)})`);
+    g.addColorStop(1,'transparent');
+    hctx.strokeStyle=g;hctx.lineWidth=2.8;hctx.lineCap='round';
+    hctx.beginPath();hctx.moveTo(this.x,this.y);hctx.lineTo(tx,ty);hctx.stroke();
+    hctx.beginPath();hctx.arc(this.x,this.y,3.5,0,Math.PI*2);
+    hctx.fillStyle=`rgba(255,255,240,${Math.min(1,this.a*1.1)})`;hctx.fill();
+    hctx.beginPath();hctx.arc(this.x,this.y,8,0,Math.PI*2);
+    hctx.fillStyle=`rgba(255,250,220,${Math.min(1,this.a*0.25)})`;hctx.fill();
+  }
+}
+class HWish{
+  constructor(x,y){
+    this.x=x;this.y=y;
+    const a=Math.random()*Math.PI*2,s=Math.random()*3.5+2;
+    this.vx=Math.cos(a)*s;this.vy=Math.sin(a)*s;
+    this.r=Math.random()*2.8+0.6;this.a=1;this.d=0.005+Math.random()*0.009;
+  }
+  update(){this.x+=this.vx;this.y+=this.vy;this.vx*=0.97;this.vy*=0.97;this.a-=this.d}
+  draw(){
+    if(this.a<=0)return;
+    hctx.beginPath();hctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+    hctx.fillStyle=`rgba(212,184,106,${this.a})`;hctx.fill();
+    hctx.beginPath();hctx.arc(this.x,this.y,this.r*3.5,0,Math.PI*2);
+    hctx.fillStyle=`rgba(212,184,106,${this.a*0.18})`;hctx.fill();
+  }
+}
+// Firefly — wandering, slowly drifting warm particles
+class Firefly{
+  constructor(){
+    this.x=Math.random()*HW;this.y=Math.random()*HH;
+    this.r=Math.random()*1.6+0.7;
+    this.angle=Math.random()*Math.PI*2;
+    this.speed=Math.random()*0.25+0.08;
+    this.wander=Math.random()*0.04+0.015;
+    this.baseA=Math.random()*0.45+0.25;
+    this.a=this.baseA;
+    this.p=Math.random()*Math.PI*2;
+    this.pulseSpeed=0.008+Math.random()*0.018;
+    this.vy=Math.random()*0.15+0.05;
+  }
+  update(){
+    this.angle+=(Math.random()-0.5)*this.wander;
+    this.x+=Math.cos(this.angle)*this.speed;
+    this.y+=Math.sin(this.angle)*this.speed*0.6-this.vy*0.3;
+    if(this.x<-20)this.x=HW+20;if(this.x>HW+20)this.x=-20;
+    if(this.y<-20)this.y=HH+20;if(this.y>HH+20)this.y=-20;
+    this.a=this.baseA+Math.sin(Date.now()*this.pulseSpeed+this.p)*0.15;
+  }
+  draw(){
+    hctx.beginPath();hctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+    hctx.fillStyle=`rgba(240,215,140,${this.a})`;hctx.fill();
+    hctx.beginPath();hctx.arc(this.x,this.y,this.r*5,0,Math.PI*2);
+    const g=hctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.r*5);
+    g.addColorStop(0,`rgba(240,215,130,${this.a*0.2})`);
+    g.addColorStop(1,'transparent');
+    hctx.fillStyle=g;hctx.fill();
+  }
+}
+
+for(let i=0;i<5;i++)hNebulae.push(new Nebula());
+for(let i=0;i<120;i++)hDust.push(new Dust());
+for(let i=0;i<280;i++)hStars.push(new HStar());
+for(let i=0;i<8;i++)hMeteors.push(new HMeteor());
+for(let i=0;i<35;i++)hFireflies.push(new Firefly());
+
+function animateHero(){
+  hctx.clearRect(0,0,HW,HH);
+  hNebulae.forEach(n=>{n.update();n.draw()});
+  hDust.forEach(d=>{d.update();d.draw()});
+  hStars.forEach(s=>{s.update();s.draw()});
+  hMeteors.forEach(m=>{m.update();m.draw()});
+  hFireflies.forEach(f=>{f.update();f.draw()});
+  for(let i=hWishes.length-1;i>=0;i--){hWishes[i].update();hWishes[i].draw();if(hWishes[i].a<=0)hWishes.splice(i,1)}
+  requestAnimationFrame(animateHero);
+}
+animateHero();
+
+function triggerWish(){
+  for(let i=0;i<25;i++){
+    setTimeout(()=>hWishes.push(new HWish(HW/2+(Math.random()-0.5)*HW*0.35,HH/2+(Math.random()-0.5)*HH*0.35)),i*50);
+  }
+}
+
+// ===== OPENING STARS (dramatic overlay) =====
+const openingStars=document.getElementById('openingStars');
+for(let i=0;i<100;i++){
+  const size=Math.random()*3+1;
+  const s=document.createElement('div');
+  s.style.cssText=`position:absolute;left:${Math.random()*100}%;top:${Math.random()*100}%;width:${size}px;height:${size}px;border-radius:50%;background:rgba(${Math.random()>0.15?'220,210,180':'200,190,230'},${Math.random()*0.55+0.2});box-shadow:0 0 ${Math.random()*6+2}px rgba(220,210,180,${Math.random()*0.35+0.1});animation:twinkle ${Math.random()*3+2}s ease-in-out ${Math.random()*2}s infinite`;
+  openingStars.appendChild(s);
+}
+
+// ===== ENTER =====
+let entered=false;
+function enterStory(){
+  if(entered)return;
+  entered=true;
+  document.getElementById('opening').classList.add('vanish');
+  const main=document.getElementById('main-content');
+  main.classList.add('visible');
+  setTimeout(()=>{
+    document.getElementById('openingLetter').classList.add('visible');
+    document.getElementById('coupleWrap').classList.add('visible');
+    observeCards();
+  },600);
+}
+
+let scrollTriggered=false;
+window.addEventListener('scroll',()=>{
+  if(!entered&&!scrollTriggered&&window.scrollY>30){
+    scrollTriggered=true;
+    enterStory();
+  }
+});
+window.addEventListener('wheel',()=>{if(!entered)enterStory()});
+window.addEventListener('touchmove',()=>{if(!entered)enterStory()});
+
+// ===== OBSERVER =====
+function observeCards(){
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+  },{threshold:0.15});
+  document.querySelectorAll('.env-card').forEach(c=>obs.observe(c));
+
+  const footObs=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+  },{threshold:0.3});
+  footObs.observe(document.getElementById('footer'));
+}
+
+// ===== TOGGLE LETTER =====
+function toggleLetter(card){
+  const wasOpen=card.classList.contains('open');
+  document.querySelectorAll('.env-card.open').forEach(c=>{if(c!==card)c.classList.remove('open')});
+  if(!wasOpen){
+    card.classList.add('open');card.classList.add('found');
+    // 首次展开信封时触发拥抱动画
+    const wrap=document.getElementById('coupleWrap');
+    if(wrap&&!wrap.classList.contains('embraced'))wrap.classList.add('embraced');
+    const rect=card.getBoundingClientRect();
+    for(let i=0;i<3;i++)hWishes.push(new HWish(rect.left+rect.width/2,rect.top+rect.height/2));
+    setTimeout(()=>{
+      const r=card.getBoundingClientRect();
+      if(r.bottom>window.innerHeight-40||r.top<60)card.scrollIntoView({behavior:'smooth',block:'center'});
+    },100);
+  }else{card.classList.remove('open')}
+}
+
+// ===== MUSIC =====
+let mp=false;
+function toggleMusic(){
+  const a=document.getElementById('bgMusic');
+  const btns=[document.getElementById('musicBtn'),document.getElementById('openingMusicBtn')];
+  if(mp){a.pause();btns.forEach(b=>b&&b.classList.remove('playing'))}
+  else{a.play().catch(()=>{});btns.forEach(b=>b&&b.classList.add('playing'))}
+  mp=!mp;
+}
+
+console.log('%c Five Years of Starlight ','background:#050710;color:#d4b86a;font-family:serif;padding:4px 10px;border:1px solid #2a2a40;');
+</script>
+</body>
+</html>
