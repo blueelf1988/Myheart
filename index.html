@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>BrandCoach · 商务英语陪练 · 内测版</title>
+  <meta name="description" content="面向出海商务人士的AI英语口语陪练工具" />
+  <meta name="theme-color" content="#0E1729" />
+  <!-- PWA -->
+  <link rel="manifest" href="./manifest.json" />
+  <!-- iOS PWA -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="BrandCoach" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='36' fill='%230E1729'/><text x='90' y='118' font-size='84' font-family='Georgia,serif' font-weight='bold' fill='%23E76A2C' text-anchor='middle'>B</text></svg>" />
+  <!-- Android splash screen -->
+  <meta name="mobile-web-app-capable" content="yes" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="./demo-mode.js"></script>
+</head>
+<body>
+  <!-- 顶部公告条（内测标识） -->
+  <div class="announce" id="announce">
+    <span class="announce-dot"></span>
+    <span><strong>内测版 v2.0</strong> · 4 维度 AI 评分 · AI 角色切换 · 语音输入 + TTS · 话术本 · 能力雷达图</span>
+    <button class="announce-close" id="announceClose" aria-label="关闭">×</button>
+  </div>
+
+  <!-- 顶部栏 -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">BC</div>
+      <div class="brand-text">
+        <div class="brand-name">BrandCoach</div>
+        <div class="brand-sub">海外营销工作英语陪练</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+              <div class="env-pill" id="envPill" title="当前 LLM 状态">
+                <span class="env-dot"></span><span id="envLabel">检测中…</span>
+              </div>
+              <div class="user-switch" id="userSwitch" title="点击切换身份（内测）">
+                <span class="user-dot" id="userDot"></span>
+                <span id="userLabel">检测中…</span>
+                <span class="caret">▾</span>
+              </div>
+              <button class="iconbtn" id="btnReset" title="重置 demo 状态">↺</button>
+            </div>
+  </header>
+
+  <!-- 主布局：左侧导航 + 主区 -->
+  <div class="layout">
+    <aside class="sidenav">
+      <nav>
+        <a class="navlink active" data-tab="home" href="#home">
+          <span class="nav-ico">◆</span><span>首页</span>
+        </a>
+        <a class="navlink" data-tab="scripts" href="#scripts">
+          <span class="nav-ico">▤</span><span>剧本库</span>
+          <span class="nav-badge" id="badgeScripts">49</span>
+        </a>
+        <a class="navlink" data-tab="reviews" href="#reviews">
+          <span class="nav-ico">🔄</span><span>复习计划</span>
+          <span class="nav-badge accent" id="badgeReviews">0</span>
+        </a>
+        <a class="navlink" data-tab="placement" href="#placement">
+          <span class="nav-ico">🎯</span><span>能力测评</span>
+        </a>
+        <a class="navlink" data-tab="mistakes" href="#mistakes">
+          <span class="nav-ico">📝</span><span>错题库</span>
+          <span class="nav-badge" id="badgeMistakes">0</span>
+        </a>
+        <a class="navlink" data-tab="session" href="#session">
+          <span class="nav-ico">▶</span><span>陪练会话</span>
+        </a>
+        <a class="navlink" data-tab="wallet" href="#wallet">
+          <span class="nav-ico">◐</span><span>钱包</span>
+          <span class="nav-badge accent" id="badgeCredits">0</span>
+        </a>
+        <a class="navlink" data-tab="subscribe" href="#subscribe">
+          <span class="nav-ico">♛</span><span>订阅</span>
+        </a>
+        <a class="navlink" data-tab="coaching" href="#coaching">
+          <span class="nav-ico">✦</span><span>1v1 教练</span>
+        </a>
+        <a class="navlink" data-tab="progress" href="#progress">
+          <span class="nav-ico">⌬</span><span>能力雷达</span>
+        </a>
+
+      </nav>
+
+      <div class="sidefooter">
+        <div class="kv"><span>订阅</span><b id="sidePlan">FREE</b></div>
+        <div class="kv"><span>积分余额</span><b id="sideBalance">—</b></div>
+        <div class="kv"><span>剧本已解锁</span><b id="sideUnlocked">—</b></div>
+        <div class="kv" style="margin-top:8px;cursor:pointer" id="langRow">
+          <span id="langLabel">中文</span>
+          <b id="langToggle" style="color:var(--c-accent);font-size:13px">EN</b>
+        </div>
+      </div>
+    </aside>
+
+    <main class="content" id="content">
+      <!-- 各 Tab 容器由 JS 渲染 -->
+    </main>
+  </div>
+
+  <!-- 模态层（解锁/支付/团购/预约） -->
+  <div class="modal" id="modal" hidden>
+    <div class="modal-card" id="modalCard"></div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast-wrap" id="toastWrap"></div>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>
