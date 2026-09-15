@@ -2,7 +2,7 @@
   "name": "BrandCoach · 商务英语陪练",
   "short_name": "BrandCoach",
   "description": "面向出海商务人士的AI英语口语陪练工具",
-  "start_url": "/web/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#0E1729",
   "theme_color": "#0E1729",

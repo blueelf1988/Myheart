@@ -1,11 +1,12 @@
 // BrandCoach PWA Service Worker
 const CACHE_NAME = 'brandcoach-v4';
 const ASSETS = [
-  '/web/',
-  '/web/index.html',
-  '/web/styles.css',
-  '/web/app.js',
-  '/web/manifest.json',
+  './',
+  './index.html',
+  './styles.css',
+  './app.js',
+  './demo-mode.js',
+  './manifest.json',
 ];
 
 // 安装：缓存核心资源
@@ -80,7 +81,7 @@ self.addEventListener('fetch', (event) => {
       }).catch(() => {
         // 离线时返回首页
         if (event.request.mode === 'navigate') {
-          return caches.match('/web/');
+          return caches.match('./');
         }
         return new Response('Offline', { status: 503 });
       });
